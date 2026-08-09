@@ -21,20 +21,32 @@ for line in sys.stdin:
 	adj[a].append((b,c))
 	adj[b].append((a,c))
 
-def walk(current, visited, path):
+
+best_distance = 0
+best_path = 0
+
+
+def walk(current, visited, path, current_distance):
+	global best_distance, best_path
+	
 	for (to,dist) in adj[current]:
 		if to not in visited:
 			visited.add(to)
 			path.append(to)
-			walk(to, visited , path)
+			walk(to, visited , path, current_distance + dist)
 
 			visited.remove(to)
 			path.pop()
-			
-	print(path)
 
 
-start = 1
-visited = {start}
-path = [start]
-walk(start, visited, path)
+	if current_distance > best_distance:
+		best_distance = current_distance
+		best_path = path[:]
+
+
+for start in adj.keys():
+		visited = {start}
+		path = [start]
+		walk(start, visited, path, 0)
+
+print(best_path, best_distance)
