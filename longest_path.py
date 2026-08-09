@@ -21,13 +21,23 @@ for line in sys.stdin:
 	adj[a].append((b,c))
 	adj[b].append((a,c))
 
+total_weight = 0
+for station in adj:
+	for (to, dist) in adj[station]:
+		total_weight += dist
+total_weight = total_weight/2
+
 
 best_distance = 0
-best_path = 0
+best_path = []
 
 
 def walk(current, visited, path, current_distance):
 	global best_distance, best_path
+
+	remaining = total_weight - current_distance
+	if current_distance + remaining <= best_distance:
+		return
 
 	for (to,dist) in adj[current]:
 		if to not in visited:
