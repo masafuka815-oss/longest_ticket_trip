@@ -21,4 +21,17 @@ for line in sys.stdin:
 	adj[a].append((b,c))
 	adj[b].append((a,c))
 
-print(adj)
+def walk(current, visited, path):
+	for (to,dist) in adj[current]:
+		if to not in visited:
+			visited.add(to)
+			path.append(to)
+			walk(to, visited , path)
+			return
+	print(path)
+
+
+start = 1
+visited = {start}
+path = [start]
+walk(start, visited, path)
