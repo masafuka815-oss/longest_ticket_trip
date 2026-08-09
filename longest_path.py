@@ -29,7 +29,7 @@ total_weight = total_weight/2
 
 
 best_distance = 0
-best_path = []
+best_path = [next(iter(adj))]
 
 
 def walk(current, visited, path, current_distance):
