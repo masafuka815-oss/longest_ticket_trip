@@ -1,4 +1,5 @@
 import sys
+import time
 
 adj = {}
 
@@ -31,9 +32,20 @@ total_weight = total_weight/2
 best_distance = 0
 best_path = [next(iter(adj))]
 
+start_time = time.time()
+TIME_LIMIT = 30
+timed_out = False
+
 
 def walk(current, visited, path, current_distance):
-	global best_distance, best_path
+	global best_distance, best_path, timed_out
+
+	if timed_out:
+		return
+
+	if time.time() - start_time > TIME_LIMIT:
+		timed_out = True
+		return
 
 	remaining = total_weight - current_distance
 	if current_distance + remaining <= best_distance:
@@ -55,6 +67,8 @@ def walk(current, visited, path, current_distance):
 
 
 for start in adj.keys():
+		if timed_out:
+			break
 		visited = {start}
 		path = [start]
 		walk(start, visited, path, 0)
