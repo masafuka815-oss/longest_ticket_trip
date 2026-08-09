@@ -27,7 +27,10 @@ def walk(current, visited, path):
 			visited.add(to)
 			path.append(to)
 			walk(to, visited , path)
-			return
+
+			visited.remove(to)
+			path.pop()
+			
 	print(path)
 
 
