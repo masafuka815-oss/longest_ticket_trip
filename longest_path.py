@@ -28,7 +28,7 @@ best_path = 0
 
 def walk(current, visited, path, current_distance):
 	global best_distance, best_path
-	
+
 	for (to,dist) in adj[current]:
 		if to not in visited:
 			visited.add(to)
@@ -49,4 +49,6 @@ for start in adj.keys():
 		path = [start]
 		walk(start, visited, path, 0)
 
-print(best_path, best_distance)
+str_path = [str(x) for x in best_path]
+output = "\r\n".join(str_path) + "\r\n"
+print(output, end="")
